@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+  position: relative;
+}
+
+body {
+  /* background-color: blue; */
+  display: grid;
+  grid-template-rows: repeat(2, max(90px, 14%)) 1fr;
+  min-height: 100svh;
+  font-family: "Poppins";
+}
+
+.title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 2.6rem;
+}
+
+#profile-container {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-button {
+  font-size: 20px;
+}
+
+#profile-image {
+  width: 50px;
+  border-radius: 50%;
+  display: block;
+  border: 1px solid #000;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:focus {
+  outline: none;
+  background-color: #80808055;
+}
