@@ -277,6 +277,82 @@ footer {
   text-align: center;
 }
 
+dialog#modal {
+  border: 1px solid #000;
+  border-radius: 8px;
+
+  & div:not(.status-input) > label {
+    display: block;
+    font-weight: 600;
+  }
+
+  & textarea {
+    font-size: 16px;
+    font-family: inherit;
+    resize: block;
+    padding: 4px;
+    width: 300px;
+    min-height: 35px;
+    border: 1px solid #000;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  & input:not([type="radio"]) {
+    height: 35px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 0 6px;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  & :is(input[type="text"], input[type="url"]) {
+    width: 300px;
+    margin-bottom: 12px;
+  }
+
+  & input[type="number"] {
+    width: 80px;
+  }
+
+  & input[type="radio"] {
+    accent-color: #ff4500;
+    &:nth-of-type(2) {
+      margin-left: 16px;
+    }
+  }
+}
+
+.status-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.status-input {
+  align-self: flex-end;
+}
+
+.modal-button-container {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+dialog#modal button {
+  background: none;
+  border: 1px solid #000;
+  border-radius: 6px;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 h1 {
   margin: 0;
 }

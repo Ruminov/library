@@ -28,6 +28,43 @@
       </div>
     </header>
     <main>
+      <dialog id="modal">
+        <form method="dialog">
+          <div>
+            <label for="title">Title</label>
+            <textarea name="book-title" id="title"></textarea>
+            <!-- <input type="text" id="title" name="book-title" /> -->
+          </div>
+          <div>
+            <label for="author">author</label
+            ><input type="text" id="author" name="book-author" />
+          </div>
+          <div>
+            <label for="cover">Cover image URL</label
+            ><input type="url" id="cover" name="book-cover" />
+          </div>
+          <div class="status-container">
+            <div>
+              <label for="pages">Pages</label
+              ><input type="number" id="pages" name="book-pages" />
+            </div>
+            <div class="status-input">
+              <input type="radio" id="read" name="book_status" value="read" />
+              <label for="read">Read</label>
+              <input
+                type="radio"
+                id="unread"
+                name="book_status"
+                value="unread" />
+              <label for="read">Unread</label>
+            </div>
+          </div>
+          <div class="modal-button-container">
+            <button>Cancel</button>
+            <button>Save</button>
+          </div>
+        </form>
+      </dialog>
       <div class="book-control">
         <div class="book-control-top">
           <input
