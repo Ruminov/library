@@ -27,7 +27,65 @@
         /></a>
       </div>
     </header>
-    <main></main>
-    <footer></footer>
+    <main>
+      <div class="book-control">
+        <div class="book-control-top">
+          <input
+            type="search"
+            placeholder="Search a book"
+            id="control-search" />
+          <button id="control-add">Add book</button>
+          <select name="book" id="control-filter">
+            <option>Filter</option>
+            <option value="all">All</option>
+            <option value="read">Read</option>
+            <option value="unread">Unread</option>
+          </select>
+        </div>
+        <div class="book-control-bottom">
+          <p><span id="n-pages">#</span>Pages</p>
+          <p><span id="n-books">#</span>Books</p>
+          <p><span id="n-read">#</span>read books</p>
+          <p><span id="n-unread">#</span>unread books</p>
+        </div>
+      </div>
+      <div class="book-catalog">
+        <div class="book-card">
+          <div class="book-image">
+            <div class="book-status">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M0.41,13.41L6,19L7.41,17.58L1.83,12M22.24,5.58L11.66,16.17L7.5,12L6.07,13.41L11.66,19L23.66,7M18,7L16.59,5.58L10.24,11.93L11.66,13.34L18,7Z" />
+              </svg>
+            </div>
+            <div class="book-options">
+              <button>✎</button>
+              <button>✖</button>
+            </div>
+            <div class="page-count">
+              170 <img src="img/file-outline.svg" alt="" />
+            </div>
+          </div>
+          <div class="book-info">
+            <p class="book-info-title">
+              Meditations - Marcus Aurelius: The New English Translation for
+              Modern Readers
+            </p>
+            <p class="book-info-author">By Marcus Aurelius</p>
+          </div>
+        </div>
+        <div class="add-book-card">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M17,13H13V17H11V13H7V11H11V7H13V11H17M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>Copyright © <span id="copy-year"></span> Ruminov</p>
+    </footer>
   </body>
 </html>
