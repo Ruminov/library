@@ -147,11 +147,14 @@ main {
 
 .book-image {
   position: relative;
-  background-image: url("https://m.media-amazon.com/images/I/61zSRl1PNiL._SY425_.jpg");
+  background-image: url(img/Picture_icon_WHITE.svg);
+  background-color: #a59999;
   width: 100%;
   height: 29vh; /* Your desired height */
-  background-size: cover; /* Cover the entire div */
+  background-size: contain; /* Cover the entire div */
+  background-repeat: no-repeat;
   background-position: top; /* Center the image */
+  user-select: none;
 }
 
 .book-image .book-options {
@@ -175,20 +178,29 @@ main {
   position: absolute;
   top: -19px;
   left: -4px;
-  background-color: #ff4500;
+  background-color: #302d2dc9;
   height: 60px;
   transform: rotate(45deg);
+  transition: background-color 200ms;
 }
 
-.book-image .book-status svg {
+.book-image .book-status.read::before {
+  background-color: #ff4500;
+}
+
+.book-status svg {
   position: relative;
   top: -2px;
   width: 30px;
   padding: 2px;
   cursor: pointer;
 }
+& path {
+  transition: fill 200ms;
+  fill: #727171;
+}
 
-.book-status svg path {
+.book-status.read svg path {
   fill: #c2c2c2;
 }
 
@@ -227,6 +239,7 @@ main {
 .book-info-title {
   font-size: 14px;
   font-weight: 600;
+  min-height: 34px;
   line-height: 1.2;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -277,10 +290,21 @@ footer {
   text-align: center;
 }
 
-dialog#modal {
+dialog.modal {
   border: 1px solid #000;
   border-radius: 8px;
+  &:focus-visible {
+    outline: none;
+  }
+}
 
+/* Disable element highlight */
+.status-input,
+button {
+  user-select: none;
+}
+
+dialog.modal:is(#edit-book, #add-book) {
   & div:not(.status-input) > label {
     display: block;
     font-weight: 600;
@@ -290,7 +314,8 @@ dialog#modal {
     font-size: 16px;
     font-family: inherit;
     resize: block;
-    padding: 4px;
+    padding: 4px 6px;
+    border-radius: 4px;
     width: 300px;
     min-height: 35px;
     border: 1px solid #000;
@@ -327,6 +352,15 @@ dialog#modal {
   }
 }
 
+dialog.modal:is(#edit-book, #add-book)::before {
+  content: url(img/bookmark.svg);
+  position: absolute;
+  top: -8px;
+  right: 28px;
+  width: 60px;
+  height: 60px;
+}
+
 .status-container {
   display: flex;
   gap: 16px;
@@ -343,22 +377,58 @@ dialog#modal {
   justify-content: flex-end;
 }
 
-dialog#modal button {
-  background: none;
-  border: 1px solid #000;
+dialog.modal button {
+  background-color: #7e7c7c;
+  /* border: 1px solid #000; */
+  padding: 2px 8px;
+  border: none;
   border-radius: 6px;
+  color: #fff;
+  &#btn-remove {
+    background-color: #ff4747;
+  }
+  &:hover {
+    filter: opacity(85%);
+  }
 }
 
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-h1 {
+dialog.modal#remove-book {
+  width: 250px;
+  text-align: center;
+  & > :nth-child(1) {
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+}
+
+dialog.modal#remove-book .modal-button-container {
+  justify-content: center;
+}
+
+h1,
+h2 {
   margin: 0;
+}
+
+dialog h2 {
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+dialog h2 {
+  text-align: center;
 }
 
 p {
   margin: 0;
+}
+
+button:focus-visible {
+  outline: none;
 }
 
 button,
