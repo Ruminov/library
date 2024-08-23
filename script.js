@@ -3,7 +3,7 @@ const myLibrary = [
   {
     title:
       "Meditations - Marcus Aurelius: The New English Translation for Modern Readers",
-    author: "By Marcus Aurelius",
+    author: "Marcus Aurelius",
     cover: "https://m.media-amazon.com/images/I/41qeJMfXybL._SY445_SX342_.jpg",
     pages: "170",
     status: "read",
@@ -67,7 +67,28 @@ const cover = document.getElementById("cover");
 const pages = document.getElementById("pages");
 const read = document.getElementById("read");
 const unread = document.getElementById("unread");
+const filterCatalog = document.getElementById("control-filter");
+const controlBotton = document.querySelector(".book-control-bottom");
 let tempCardIndex;
+
+// Search input to filter cards
+
+const searchInput = document.getElementById("control-search");
+
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+  console.log(value);
+
+  myLibrary.forEach((obj, index) => {
+    const isVisible = obj.title.toLowerCase().includes(value);
+    console.log(isVisible);
+    const a = document.querySelector(`.book-card[data-index="${index}"]`);
+    console.log(a);
+
+    a.classList.toggle("hide", !isVisible);
+    console.log(index);
+  });
+});
 
 // Add card to library
 function addBookToLibrary(e) {
@@ -82,20 +103,22 @@ function addBookToLibrary(e) {
 
   // Update book data in catalog
   if (book_data_modal.id === "edit-book") {
+    const card = document.querySelector(
+      `.book-card[data-index="${tempCardIndex}"]`
+    );
     myLibrary.splice(tempCardIndex, 1, bookData);
-    console.log("Edit one");
+    updateCardDisplay(card, bookData);
   }
 
   // Add book data in catalog
   if (book_data_modal.id === "add-book") {
     displayBook(bookData);
     myLibrary.push(bookData);
-    console.log(bookData);
-    console.log("Add one");
   }
-  console.log(myLibrary);
+
   book_data_modal.close();
   form.reset();
+  updateStats();
 }
 
 form.addEventListener("submit", addBookToLibrary);
@@ -110,7 +133,6 @@ function displayBook(bookData) {
   const cardCount = document.querySelectorAll("div.book-card");
   newCard.classList.add("book-card");
   newCard.setAttribute("data-index", `${cardCount.length}`);
-  console.log(myLibrary);
   newCard.innerHTML = `<div class="book-image">
   <div class="book-status">
     <svg
@@ -118,6 +140,7 @@ function displayBook(bookData) {
       viewBox="0 0 24 24"
       class="status-book-button"
       title="Change status">
+      <title>Edit status</title>
       <path
         d="M0.41,13.41L6,19L7.41,17.58L1.83,12M22.24,5.58L11.66,16.17L7.5,12L6.07,13.41L11.66,19L23.66,7M18,7L16.59,5.58L10.24,11.93L11.66,13.34L18,7Z" />
     </svg>
@@ -134,8 +157,10 @@ function displayBook(bookData) {
   <p class="book-info-title">
     ${obj.title}
   </p>
-  <p class="book-info-author">${obj.author}</p>
+  <p class="book-info-author"> By ${obj.author}</p>
 </div>`;
+
+  changeCardColor(newCard);
 
   if (obj.cover) {
     newCard.firstElementChild.style.cssText = `background-image: url(${obj.cover}); background-size: cover`;
@@ -146,11 +171,56 @@ function displayBook(bookData) {
   catalog.insertBefore(newCard, addBookCard);
 }
 
+function updateCardDisplay(card, obj) {
+  card.innerHTML = `<div class="book-image">
+  <div class="book-status">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      class="status-book-button"
+      title="Change status">
+      <title>Edit status</title>
+      <path
+        d="M0.41,13.41L6,19L7.41,17.58L1.83,12M22.24,5.58L11.66,16.17L7.5,12L6.07,13.41L11.66,19L23.66,7M18,7L16.59,5.58L10.24,11.93L11.66,13.34L18,7Z" />
+    </svg>
+  </div>
+  <div class="book-options">
+    <button class="edit-book-button" title="Edit book">✎</button>
+    <button class="remove-book-button" title="Remove book">✖</button>
+  </div>
+  <div class="page-count">
+    ${obj.pages} <img src="img/file-outline.svg" alt="" />
+  </div>
+</div>
+<div class="book-info">
+  <p class="book-info-title">
+    ${obj.title}
+  </p>
+  <p class="book-info-author">By ${obj.author}</p>
+</div>`;
+  if (obj.cover) {
+    card.firstElementChild.style.cssText = `background-image: url(${obj.cover}); background-size: cover`;
+  }
+}
+
+function updateStats() {
+  const pages = myLibrary.reduce((acc, obj) => acc + +obj.pages, 0);
+  const books = myLibrary.length;
+  const read = myLibrary.filter((obj) => obj.status === "read").length;
+  const unread = myLibrary.filter((obj) => obj.status === "unread").length;
+
+  controlBotton.innerHTML = `
+    <p><span id="n-pages">${pages}</span>Pages</p>
+    <p><span id="n-books">${books}</span>Books</p>
+    <p><span id="n-read">${read}</span>read books</p>
+    <p><span id="n-unread">${unread}</span>unread books</p>
+  `;
+}
+
 // Set up card buttons with event delegation
 catalog.addEventListener("click", (e) => {
   // Edit button
   if (e.target.matches("button.edit-book-button")) {
-    console.log(myLibrary);
     book_data_modal.id = "edit-book";
     tempCardIndex = e.target.closest("div.book-card").dataset.index;
     const bookData = myLibrary[tempCardIndex];
@@ -163,11 +233,9 @@ catalog.addEventListener("click", (e) => {
     if (bookData.status === "read") {
       unread.removeAttribute("checked");
       read.setAttribute("checked", "");
-      console.log("Primero");
     } else {
       read.removeAttribute("checked");
       unread.setAttribute("checked", "");
-      console.log("Segundo");
     }
 
     book_data_modal.showModal();
@@ -177,19 +245,18 @@ catalog.addEventListener("click", (e) => {
   if (e.target.matches("button.remove-book-button")) {
     remove_book_modal.showModal();
     const card = e.target.closest("div.book-card");
-    console.log(card);
     // Remove button confirmation for card deletion
     btnRemove.addEventListener("click", (e) => {
       myLibrary.splice(card.dataset.index, 1);
       card.remove();
       remove_book_modal.close();
+      updateStats();
 
       // Update the data-index of all cards
       let count = 0;
       document.querySelectorAll("div.book-card").forEach((card) => {
         card.dataset.index = count;
         count++;
-        console.log("done");
       });
     });
   }
@@ -197,12 +264,11 @@ catalog.addEventListener("click", (e) => {
   if (e.target.matches("svg.status-book-button")) {
     let cardIndex = e.target.closest("div.book-card").dataset.index;
     let statusContainer = e.target.closest("div.book-status");
-    console.log(statusContainer);
 
     statusContainer.classList.toggle("read");
     myLibrary[cardIndex].status =
       myLibrary[cardIndex].status === "read" ? "unread" : "read";
-    console.log(myLibrary);
+    updateStats();
   }
 });
 
@@ -226,10 +292,25 @@ document.querySelectorAll(".btn-cancel").forEach((i) => {
   });
 });
 
+// Filter catalog
+
+filterCatalog.addEventListener("change", function () {
+  catalog.dataset.filter = this.value;
+});
+
 // Clear input when using Esc
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && book_data_modal.hasAttribute("open")) form.reset();
 });
+// Change card background color
+function changeCardColor(card) {
+  const randHSL = Math.floor(Math.random() * 361);
+  card.style.backgroundColor = `hsl(${randHSL}, 20%, 71%)`;
+}
+const allCards = document.querySelectorAll("div.book-card");
+allCards.forEach(changeCardColor);
 
 // Auto update footer copyright year
 document.getElementById("copy-year").textContent = new Date().getFullYear();
+
+updateStats();

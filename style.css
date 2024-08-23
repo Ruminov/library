@@ -37,12 +37,18 @@ body {
   grid-template-rows: max(90px, 14%) 1fr max(25px, 4%);
   min-height: 100svh;
   font-family: "Poppins";
+  --background-primary: #f2f2f2;
+  --background-secondary: #fdfdfd;
+  --border-primary: #808080;
   --color-icon-darker: #b3adad;
+  --color-accent: #ff4500;
+  background-color: var(--background-primary);
 }
 
 header {
   display: flex;
   justify-content: flex-end;
+  align-items: start;
   padding: 16px;
   position: relative;
 }
@@ -64,6 +70,9 @@ header {
 
 .profile-button {
   font-size: 20px;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 #profile-image {
@@ -77,6 +86,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  margin-bottom: 32px;
 }
 
 .book-control {
@@ -96,7 +106,8 @@ main {
   width: 500px;
   height: 35px;
   padding: 0 8px;
-  border: 1px solid #000;
+  border: 1px solid var(--border-primary);
+  background-color: var(--background-secondary);
   font-size: 16px;
   border-radius: 4px;
   &:focus {
@@ -106,12 +117,14 @@ main {
 
 #control-add {
   background: none;
-  border: 1px solid #000;
+  border: 1px solid var(--border-primary);
+  background-color: var(--background-secondary);
   border-radius: 4px;
 }
 
 #control-filter {
-  border: 1px solid #000;
+  border: 1px solid var(--border-primary);
+  background-color: var(--background-secondary);
   border-radius: 4px;
   &:focus {
     outline: none;
@@ -141,7 +154,7 @@ main {
 
 .book-card {
   border-radius: 8px;
-  background-color: #beaaaa;
+  background-color: hsl(0, 13%, 71%);
   overflow: hidden;
 }
 
@@ -171,6 +184,22 @@ main {
   }
 }
 
+.book-catalog > .book-card {
+  display: none;
+}
+
+.book-catalog[data-filter="all"] > .book-card {
+  display: revert;
+}
+
+.book-catalog[data-filter="read"] > .book-card:has(.book-status.read) {
+  display: revert;
+}
+
+.book-catalog[data-filter="unread"] > .book-card:has(.book-status:not(.read)) {
+  display: revert;
+}
+
 .book-image .book-status::before {
   content: "";
   width: 30px;
@@ -185,7 +214,7 @@ main {
 }
 
 .book-image .book-status.read::before {
-  background-color: #ff4500;
+  background-color: var(--color-accent);
 }
 
 .book-status svg {
@@ -201,7 +230,7 @@ main {
 }
 
 .book-status.read svg path {
-  fill: #c2c2c2;
+  fill: #fff;
 }
 
 .book-image .book-options button {
@@ -291,7 +320,8 @@ footer {
 }
 
 dialog.modal {
-  border: 1px solid #000;
+  border: 1px solid var(--border-primary);
+  background-color: var(--background-primary);
   border-radius: 8px;
   &:focus-visible {
     outline: none;
@@ -318,7 +348,8 @@ dialog.modal:is(#edit-book, #add-book) {
     border-radius: 4px;
     width: 300px;
     min-height: 35px;
-    border: 1px solid #000;
+    border: 1px solid var(--border-primary);
+    background-color: var(--background-secondary);
     &:focus {
       outline: none;
     }
@@ -326,7 +357,8 @@ dialog.modal:is(#edit-book, #add-book) {
 
   & input:not([type="radio"]) {
     height: 35px;
-    border: 1px solid #000;
+    border: 1px solid var(--border-primary);
+    background-color: var(--background-secondary);
     border-radius: 4px;
     font-size: 16px;
     padding: 0 6px;
@@ -345,7 +377,7 @@ dialog.modal:is(#edit-book, #add-book) {
   }
 
   & input[type="radio"] {
-    accent-color: #ff4500;
+    accent-color: var(--color-accent);
     &:nth-of-type(2) {
       margin-left: 16px;
     }
@@ -385,7 +417,7 @@ dialog.modal button {
   border-radius: 6px;
   color: #fff;
   &#btn-remove {
-    background-color: #ff4747;
+    background-color: var(--color-accent);
   }
   &:hover {
     filter: opacity(85%);
@@ -445,4 +477,8 @@ a {
 a:focus {
   outline: none;
   background-color: #80808055;
+}
+
+.book-catalog > .book-card.hide {
+  display: none;
 }
