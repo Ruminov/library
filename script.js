@@ -55,7 +55,7 @@ const myLibrary = [
 ];
 
 // Get references
-const form = document.querySelector("dialog#book-data form");
+const form = document.querySelector("dialog.modal.one form");
 const catalog = document.querySelector(".book-catalog");
 const addBookCard = document.querySelector(".add-book-card");
 const btnRemove = document.getElementById("btn-remove");
