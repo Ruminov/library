@@ -59,8 +59,8 @@ const form = document.querySelector("dialog#book-data form");
 const catalog = document.querySelector(".book-catalog");
 const addBookCard = document.querySelector(".add-book-card");
 const btnRemove = document.getElementById("btn-remove");
-const book_data_modal = document.querySelector("#book-data.modal");
-const remove_book_modal = document.querySelector("#remove-book.modal");
+const book_data_modal = document.querySelector(".modal.one");
+const remove_book_modal = document.querySelector(".modal.two");
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const cover = document.getElementById("cover");
@@ -205,6 +205,7 @@ function updateStats() {
 catalog.addEventListener("click", (e) => {
   // Edit button
   if (e.target.matches("button.edit-book-button")) {
+    book_data_modal.firstElementChild.textContent = "Edit book";
     book_data_modal.id = "edit-book";
     tempCardIndex = e.target.closest("div.book-card").dataset.index;
     const bookData = myLibrary[tempCardIndex];

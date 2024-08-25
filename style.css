@@ -206,6 +206,7 @@ main {
 .book-options .edit-book-button svg {
   width: 19px;
   margin-top: 6px;
+  pointer-events: none;
   & path {
     fill: #c2c2c2;
   }
