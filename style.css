@@ -34,22 +34,25 @@ body {
 
 body {
   display: grid;
-  grid-template-rows: max(90px, 14%) 1fr max(25px, 4%);
+  grid-template-rows: min(75px, 14%) 1fr min(50px, 4%);
   min-height: 100svh;
   font-family: "Poppins";
   --background-primary: #f2f2f2;
   --background-secondary: #fdfdfd;
   --border-primary: #808080;
+  --text-primary: #272424;
+  --text-secondary: #000000;
   --color-icon-darker: #b3adad;
   --color-accent: #ff4500;
+  --spacing: 16px;
   background-color: var(--background-primary);
 }
 
 header {
   display: flex;
   justify-content: flex-end;
-  align-items: start;
-  padding: 16px;
+  align-items: center;
+  padding: var(--spacing);
   position: relative;
 }
 
@@ -57,6 +60,7 @@ header {
   position: absolute;
   left: 0;
   right: 0;
+  color: var(--text-primary);
   text-align: center;
   font-size: 2.6rem;
 }
@@ -75,11 +79,21 @@ header {
   }
 }
 
+.profile-button::before {
+  display: inline-block;
+}
+
+.profile-button:nth-child(1)::before {
+  content: "Register";
+}
+.profile-button:nth-child(2)::before {
+  content: "Log in";
+}
+
 #profile-image {
   width: 50px;
   border-radius: 50%;
   display: block;
-  /* border: 1px solid #000; */
 }
 
 main {
@@ -90,20 +104,23 @@ main {
 }
 
 .book-control {
-  /* height: 80px; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 var(--spacing);
   gap: 8px;
 }
 
 .book-control-top {
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  justify-content: center;
 }
 
 #control-search {
-  width: 500px;
+  width: min(500px, 100%);
   height: 35px;
   padding: 0 8px;
   border: 1px solid var(--border-primary);
@@ -135,8 +152,12 @@ main {
 }
 
 .book-control-bottom {
+  color: var(--text-primary);
   display: flex;
+  justify-content: center;
+  width: 100%;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .book-control-bottom p > span {
@@ -146,9 +167,8 @@ main {
 .book-catalog {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  grid-auto-rows: 260px;
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  gap: var(--spacing);
   padding: 0 5vw;
 }
 
@@ -163,10 +183,10 @@ main {
   background-image: url(img/Picture_icon_WHITE.svg);
   background-color: #a59999;
   width: 100%;
-  height: 29vh; /* Your desired height */
-  background-size: contain; /* Cover the entire div */
+  height: 29vh;
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: top; /* Center the image */
+  background-position: top;
   user-select: none;
 }
 
@@ -177,8 +197,6 @@ main {
   top: 0;
   right: 0;
   border-bottom-left-radius: 8px;
-  opacity: 0;
-  transition: opacity 170ms;
   & button {
     cursor: pointer;
   }
@@ -240,10 +258,6 @@ main {
   border: none;
 }
 
-.book-card:hover .book-options {
-  opacity: revert;
-}
-
 .book-image .page-count {
   position: absolute;
   display: flex;
@@ -263,6 +277,7 @@ main {
 
 .book-info {
   padding: 4px;
+  color: var(--text-secondary);
 }
 
 .book-info-title {
@@ -306,17 +321,16 @@ main {
   left: 0;
   right: 0;
   cursor: pointer;
-  transition: transform 250ms;
   & path {
     fill: var(--color-icon-darker);
-  }
-  &:hover {
-    transform: scale(1.2);
   }
 }
 
 footer {
   text-align: center;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
 }
 
 dialog.modal {
@@ -481,4 +495,89 @@ a:focus {
 
 .book-catalog > .book-card.hide {
   display: none;
+}
+
+/* Hover styles for desktop */
+@media (hover: hover) and (pointer: fine) {
+  .book-image .book-options {
+    opacity: 0;
+    transition: opacity 170ms;
+  }
+
+  .book-card:hover .book-options {
+    opacity: revert;
+  }
+
+  .add-book-card svg {
+    transition: transform 250ms;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+/* Mobile support */
+@media (max-width: 750px) {
+  body {
+    --spacing: 8px;
+  }
+
+  .title {
+    left: 16px;
+    right: auto;
+    font-size: clamp(2rem, 1.4231rem + 2.5641vw, 2.625rem);
+  }
+
+  .profile-button {
+  }
+
+  .profile-button::before {
+    width: 30px;
+    transform: translateY(4px);
+  }
+  .profile-button:nth-child(1)::before {
+    content: url(img/account-plus.svg);
+  }
+  .profile-button:nth-child(2)::before {
+    content: url(img/login.svg);
+  }
+
+  main {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .book-control {
+    gap: 16px;
+  }
+
+  .book-control-top {
+    justify-content: flex-start;
+  }
+
+  #control-search {
+    width: 100%;
+  }
+  .book-control-bottom {
+    justify-content: space-evenly;
+  }
+
+  .book-control-bottom p {
+    display: flex;
+    gap: 4px;
+    flex-direction: column-reverse;
+    align-items: center;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .book-control-bottom p span {
+    font-size: 24px;
+    color: var(--color-accent);
+  }
+
+  .book-catalog {
+    padding: var(--spacing);
+  }
 }

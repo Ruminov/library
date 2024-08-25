@@ -212,8 +212,8 @@ function updateStats() {
   controlBotton.innerHTML = `
     <p><span id="n-pages">${pages}</span>Pages</p>
     <p><span id="n-books">${books}</span>Books</p>
-    <p><span id="n-read">${read}</span>read books</p>
-    <p><span id="n-unread">${unread}</span>unread books</p>
+    <p><span id="n-read">${read}</span>Read</p>
+    <p><span id="n-unread">${unread}</span>Unread</p>
   `;
 }
 
