@@ -203,8 +203,8 @@ main {
   }
 }
 
-.book-options .edit-book-button svg {
-  width: 19px;
+.book-options svg {
+  width: 21px;
   margin-top: 6px;
   pointer-events: none;
   & path {
@@ -510,7 +510,7 @@ a:focus {
 /* Hover styles for desktop */
 @media (hover: hover) and (pointer: fine) {
   .book-image .book-options {
-    opacity: 0;
+    /* opacity: 0; */
     transition: opacity 170ms;
   }
 

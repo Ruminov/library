@@ -129,11 +129,11 @@ myLibrary.forEach((card) => displayBook(card));
 function generateHTMLSnippet(obj) {
   return `<div class="book-image">
   <div class="book-status">
+  
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      class="status-book-button"
-      title="Change status">
+      class="status-book-button">
       <title>Edit status</title>
       <path
         d="M0.41,13.41L6,19L7.41,17.58L1.83,12M22.24,5.58L11.66,16.17L7.5,12L6.07,13.41L11.66,19L23.66,7M18,7L16.59,5.58L10.24,11.93L11.66,13.34L18,7Z" />
@@ -146,7 +146,12 @@ function generateHTMLSnippet(obj) {
         d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
       </svg>
     </button>
-    <button class="remove-book-button" title="Remove book">✖</button>
+    <button class="remove-book-button" title="Remove book">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+          d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+      </svg>
+    </button>
   </div>
   <div class="page-count">
     ${obj.pages} <img src="img/file-outline.svg" alt="" />
@@ -261,7 +266,9 @@ catalog.addEventListener("click", (e) => {
 document
   .querySelectorAll("button#control-add, .add-book-card svg")
   .forEach((i) =>
-    i.addEventListener("click", () => {
+    i.addEventListener("click", (e) => {
+      e.preventDefault();
+      form.reset();
       book_data_modal.id = "add-book";
       book_data_modal.firstElementChild.textContent = "Add book";
       book_data_modal.showModal();
