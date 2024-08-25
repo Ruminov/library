@@ -346,9 +346,11 @@ dialog.modal {
   border: 1px solid var(--border-primary);
   background-color: var(--background-primary);
   border-radius: 8px;
-  min-width: 330px;
   &:focus-visible {
     outline: none;
+  }
+  &.one {
+    min-width: 330px;
   }
 }
 
@@ -443,9 +445,6 @@ dialog.modal button {
   &#btn-remove {
     background-color: var(--color-accent);
   }
-  &:hover {
-    filter: opacity(85%);
-  }
 }
 
 dialog::backdrop {
@@ -509,8 +508,12 @@ a:focus {
 
 /* Hover styles for desktop */
 @media (hover: hover) and (pointer: fine) {
+  dialog.modal button:hover {
+    filter: opacity(85%);
+  }
+
   .book-image .book-options {
-    /* opacity: 0; */
+    opacity: 0;
     transition: opacity 170ms;
   }
 
