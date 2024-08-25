@@ -126,14 +126,8 @@ form.addEventListener("submit", addBookToLibrary);
 // Add existing card to library
 myLibrary.forEach((card) => displayBook(card));
 
-// Create card element
-function displayBook(bookData) {
-  const obj = bookData;
-  const newCard = document.createElement("div");
-  const cardCount = document.querySelectorAll("div.book-card");
-  newCard.classList.add("book-card");
-  newCard.setAttribute("data-index", `${cardCount.length}`);
-  newCard.innerHTML = `<div class="book-image">
+function generateHTMLSnippet(obj) {
+  return `<div class="book-image">
   <div class="book-status">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +140,12 @@ function displayBook(bookData) {
     </svg>
   </div>
   <div class="book-options">
-    <button class="edit-book-button" title="Edit book">✎</button>
+   <button class="edit-book-button" title="Edit book">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path
+        d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+      </svg>
+    </button>
     <button class="remove-book-button" title="Remove book">✖</button>
   </div>
   <div class="page-count">
@@ -159,6 +158,16 @@ function displayBook(bookData) {
   </p>
   <p class="book-info-author"> By ${obj.author}</p>
 </div>`;
+}
+
+// Create card element
+function displayBook(bookData) {
+  const obj = bookData;
+  const newCard = document.createElement("div");
+  const cardCount = document.querySelectorAll("div.book-card");
+  newCard.classList.add("book-card");
+  newCard.setAttribute("data-index", `${cardCount.length}`);
+  newCard.innerHTML = generateHTMLSnippet(obj);
 
   changeCardColor(newCard);
 
@@ -172,32 +181,7 @@ function displayBook(bookData) {
 }
 
 function updateCardDisplay(card, obj) {
-  card.innerHTML = `<div class="book-image">
-  <div class="book-status">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      class="status-book-button"
-      title="Change status">
-      <title>Edit status</title>
-      <path
-        d="M0.41,13.41L6,19L7.41,17.58L1.83,12M22.24,5.58L11.66,16.17L7.5,12L6.07,13.41L11.66,19L23.66,7M18,7L16.59,5.58L10.24,11.93L11.66,13.34L18,7Z" />
-    </svg>
-  </div>
-  <div class="book-options">
-    <button class="edit-book-button" title="Edit book">✎</button>
-    <button class="remove-book-button" title="Remove book">✖</button>
-  </div>
-  <div class="page-count">
-    ${obj.pages} <img src="img/file-outline.svg" alt="" />
-  </div>
-</div>
-<div class="book-info">
-  <p class="book-info-title">
-    ${obj.title}
-  </p>
-  <p class="book-info-author">By ${obj.author}</p>
-</div>`;
+  card.innerHTML = generateHTMLSnippet(obj);
   if (obj.cover) {
     card.firstElementChild.style.cssText = `background-image: url(${obj.cover}); background-size: cover`;
   }

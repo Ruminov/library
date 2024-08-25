@@ -203,6 +203,13 @@ main {
   }
 }
 
+.book-options .edit-book-button svg {
+  width: 19px;
+  margin-top: 6px;
+  & path {
+    fill: #c2c2c2;
+  }
+}
 .book-catalog > .book-card {
   display: none;
 }
@@ -586,5 +593,9 @@ a:focus {
   .book-catalog {
     padding: var(--spacing);
     grid-auto-rows: auto;
+  }
+
+  .book-image .book-options {
+    gap: 6px;
   }
 }
