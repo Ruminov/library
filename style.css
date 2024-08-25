@@ -337,6 +337,7 @@ dialog.modal {
   border: 1px solid var(--border-primary);
   background-color: var(--background-primary);
   border-radius: 8px;
+  min-width: 330px;
   &:focus-visible {
     outline: none;
   }
@@ -360,7 +361,7 @@ dialog.modal:is(#edit-book, #add-book) {
     resize: block;
     padding: 4px 6px;
     border-radius: 4px;
-    width: 300px;
+    width: 100%;
     min-height: 35px;
     border: 1px solid var(--border-primary);
     background-color: var(--background-secondary);
@@ -382,7 +383,7 @@ dialog.modal:is(#edit-book, #add-book) {
   }
 
   & :is(input[type="text"], input[type="url"]) {
-    width: 300px;
+    width: 100%;
     margin-bottom: 12px;
   }
 
@@ -545,6 +546,10 @@ a:focus {
   main {
     gap: 8px;
     margin-bottom: 16px;
+  }
+
+  dialog.modal {
+    min-width: none;
   }
 
   .book-control {
