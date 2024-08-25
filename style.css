@@ -238,6 +238,7 @@ main {
   height: 60px;
   transform: rotate(45deg);
   transition: background-color 200ms;
+  pointer-events: none;
 }
 
 .book-image .book-status.read::before {
@@ -246,6 +247,7 @@ main {
 
 .book-status svg {
   position: relative;
+  pointer-events: none;
   top: -2px;
   width: 30px;
   padding: 2px;
