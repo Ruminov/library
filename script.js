@@ -77,16 +77,12 @@ const searchInput = document.getElementById("control-search");
 
 searchInput.addEventListener("input", (e) => {
   const value = e.target.value.toLowerCase();
-  console.log(value);
 
   myLibrary.forEach((obj, index) => {
     const isVisible = obj.title.toLowerCase().includes(value);
-    console.log(isVisible);
     const a = document.querySelector(`.book-card[data-index="${index}"]`);
-    console.log(a);
 
     a.classList.toggle("hide", !isVisible);
-    console.log(index);
   });
 });
 
@@ -115,6 +111,13 @@ function addBookToLibrary(e) {
     displayBook(bookData);
     myLibrary.push(bookData);
   }
+
+  // Make sure the status updates when the form is edited
+  const statusContainer = document.querySelector(
+    `.book-card[data-index="${tempCardIndex}"]`
+  ).firstElementChild.firstElementChild;
+  let checkRead = bookData.status === "read";
+  statusContainer.classList.toggle("read", checkRead);
 
   book_data_modal.close();
   form.reset();
@@ -220,7 +223,10 @@ catalog.addEventListener("click", (e) => {
     cover.value = bookData.cover;
     pages.value = bookData.pages;
     title.value = bookData.title;
-    if (bookData.status === "read") {
+
+    // Make sure that the status updates after form changes
+    let checkRead = bookData.status === "read";
+    if (checkRead) {
       unread.removeAttribute("checked");
       read.setAttribute("checked", "");
     } else {
@@ -250,13 +256,14 @@ catalog.addEventListener("click", (e) => {
       });
     });
   }
+
   // Status button
-  console.log(e.target);
   if (e.target.matches("div.status-book-button")) {
     let cardIndex = e.target.closest("div.book-card").dataset.index;
     let statusContainer = e.target.closest("div.book-status");
+    let checkRead = myLibrary[cardIndex].status === "read";
 
-    statusContainer.classList.toggle("read");
+    statusContainer.classList.toggle("read", !checkRead);
     myLibrary[cardIndex].status =
       myLibrary[cardIndex].status === "read" ? "unread" : "read";
     updateStats();
