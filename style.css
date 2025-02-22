@@ -319,7 +319,7 @@ main {
 
 .add-book-card > div {
   position: relative;
-  background-color: #fff;
+  background-color: var(--background-primary);
   border-radius: 4px;
   min-height: calc(29vh + 34px + 18px);
 }
