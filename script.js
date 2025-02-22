@@ -100,7 +100,7 @@ function addBookToLibrary(e) {
   // Update book data in catalog
   if (book_data_modal.id === "edit-book") {
     const card = document.querySelector(
-      `.book-card[data-index="${tempCardIndex}"]`
+      `.book-card[data-index="${tempCardIndex}"]`,
     );
     myLibrary.splice(tempCardIndex, 1, bookData);
     updateCardDisplay(card, bookData);
@@ -114,7 +114,7 @@ function addBookToLibrary(e) {
 
   // Make sure the status updates when the form is edited
   const statusContainer = document.querySelector(
-    `.book-card[data-index="${tempCardIndex}"]`
+    `.book-card[data-index="${tempCardIndex}"]`,
   ).firstElementChild.firstElementChild;
   let checkRead = bookData.status === "read";
   statusContainer.classList.toggle("read", checkRead);
@@ -280,7 +280,7 @@ document
       book_data_modal.id = "add-book";
       book_data_modal.firstElementChild.textContent = "Add book";
       book_data_modal.showModal();
-    })
+    }),
   );
 
 // Cancel button
